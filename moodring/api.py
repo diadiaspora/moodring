@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 
 
-# Color codes for terminal output
+
 class Colors:
     GREEN = "\033[92m"
     RED = "\033[91m"

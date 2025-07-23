@@ -2,54 +2,46 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <title>Mood Ring</title>
-    {% block head %} 
-    {% endblock %}
-  </head>
-  <body style="margin: 0; padding: 0; overflow-y: auto;">
-    <header style="position: static; height: 80px; width: 100%; padding-left: 21px; padding-right: 21px; background-color: transparent;">
-      <div class="header-logo-container" style="border-radius: 7px; background-color: #ffffff; width: 180px;">
-        <a href="{% url 'home' %}" style="text-decoration: none;">
-          <div style="display: flex;"> 
-            <img src="{% static 'images/header1.png' %}" class="header-ring" alt="Logo" style="width: 18%; margin-top: -2px; margin-left: 0px; margin-right: 60px;" />
-            <h3 style="font-size: 16px; text-decoration: none; color: #000000; margin-top: 0px; margin-left: -50px;">Mood Ring</h3>
-          </div>
-        </a>
-      </div>
-      <nav style="border-radius: 7px; background-color: #ffffff;">
-        <ul>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'moods' %}" style="color: #000000;">Dashboard</a></li>
-          <li><a href="{% url 'mood-create' %}" style="color: #000000;">Log a Mood</a></li>
-          <li><a href="{% url 'about' %}" style="color: #000000;">Resources</a></li>
-          
 
-          <li>
-            <form id="logout-form" method="post" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit" style="color: #000000;">Log out</button>
-            </form>
-          </li>
-          {% else %}
-          <li><a href="{% url 'about' %}" style="color: #000000;">Resources</a></li>
-          <li><a href="{% url 'home' %}" style="color: #000000;">Login</a></li>
-          <li><a href="{% url 'signup' %}" style="color: #000000;">Sign Up</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <title>Mood Ring</title>
+  {% block head %}
+  {% endblock %}
+</head>
 
-    <main>
-      {% block content %}
-      <div style="display: flex; justify-content: flex-end;">
-        <button
-          type="submit"
-          style="
+<body style="margin: 0; padding: 0; overflow-y: auto;">
+  <header
+    style="position: static; height: 80px; width: 100%; padding-left: 21px; padding-right: 21px; background-color: transparent;">
+    <div class="header-logo-container" style="border-radius: 7px; background-color: #ffffff; width: 180px;">
+      <a href="{% url 'home' %}" style="text-decoration: none;">
+        <div style="display: flex;">
+          <img src="{% static 'images/header1.png' %}" class="header-ring" alt="Logo"
+            style="width: 18%; margin-top: -2px; margin-left: 0px; margin-right: 60px;" />
+          <h3 style="font-size: 16px; text-decoration: none; color: #000000; margin-top: 0px; margin-left: -50px;">Mood
+            Ring</h3>
+        </div>
+      </a>
+    </div>
+    <nav style="border-radius: 7px; background-color: #ffffff;">
+      <ul>
+        {# This entire if/else block is for authentication. Replace with simple links below #}
+        <li><a href="{% url 'moods' %}" style="color: #000000;">Dashboard</a></li>
+        <li><a href="{% url 'mood-create' %}" style="color: #000000;">Log a Mood</a></li>
+        <li><a href="{% url 'about' %}" style="color: #000000;">Resources</a></li>
+        {# You can add a link to the home page explicitly if you wish #}
+        {# <li><a href="{% url 'home' %}" style="color: #000000;">Home</a></li> #}
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    <div style="display: flex; justify-content: flex-end;">
+      <button type="submit" style="
             margin-right: 40px;
             padding: 10px 18px;
             background-color: #f1d6b8;
@@ -62,14 +54,12 @@
             margin-top: 12px;
             font-size: 14px;
          
-          "
-          onmouseover="this.style.backgroundColor='#e2c099';"
-          onmouseout="this.style.backgroundColor='#f1d6b8';"
-        >
-          Submit!
-        </button>
-      </div>
-      {% endblock %}
-    </main>
-  </body>
+          " onmouseover="this.style.backgroundColor='#e2c099';" onmouseout="this.style.backgroundColor='#f1d6b8';">
+        Submit!
+      </button>
+    </div>
+    {% endblock %}
+  </main>
+</body>
+
 </html>

@@ -18,7 +18,6 @@ import environ
 environ.Env()
 environ.Env.read_env()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -28,31 +27,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-vod7rk+@)06^sxr^hrqv!n=!klqss@6n69ckbsmpb%jvg-o@jr"
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS = [
     "main_app",
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # REMOVE ALL OF THESE if you want a truly anonymous app without Admin
+    # "django.contrib.admin",
+    # "django.contrib.auth", # This was already gone, keep it gone
+    # "django.contrib.contenttypes",
+    # "django.contrib.sessions",
+    # "django.contrib.messages",
+    "django.contrib.staticfiles", # Keep this if you use static files (CSS/JS)
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
+    # REMOVE THESE as they are often tied to authentication/sessions/messages
+    # "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
+    # "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -64,10 +62,11 @@ TEMPLATES = [
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
-            "context_processors": [
+              "context_processors": [
                 "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
+                # REMOVE THIS if you removed django.contrib.messages
+                # "django.contrib.messages.context_processors.messages",
+                # Also ensure 'django.contrib.auth.context_processors.auth' is NOT here (it probably isn't by default if auth is removed)
             ],
         },
     },
@@ -82,7 +81,7 @@ WSGI_APPLICATION = "moodring.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "moodring",
+        "NAME": "mood",
         "USER": os.environ["DB_USER"],
         "PASSWORD": os.environ["DB_PW"],
         "HOST": os.environ["DB_HOST"],
@@ -91,23 +90,23 @@ DATABASES = {
 }
 
 
-# Password validation
+# Password validation - REMOVE THIS ENTIRE SECTION if you don't have users
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
-]
+# You should delete or comment out this entire block if no authentication is used.
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+#     },
+#     {
+#         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+#     },
+#     {
+#         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+#     },
+#     {
+#         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+#     },
+# ]
 
 
 # Internationalization
@@ -126,14 +125,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-LOGIN_REDIRECT_URL = "moods"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGOUT_REDIRECT_URL = "home"
 
 import django_on_heroku
 

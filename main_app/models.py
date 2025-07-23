@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
 import datetime
 
@@ -23,10 +22,8 @@ MOOD_CHOICES = [
     ("Other", "Other ✍️"),
 ]
 
-
-# Create your models here.
 class MoodEntry(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # The 'user' ForeignKey line should be gone completely from here.
     mood = models.CharField(max_length=100, choices=MOOD_CHOICES)
     intensity = models.CharField(max_length=100, choices=INTENSITY_LEVEL)
     journal_text = models.TextField(max_length=250)
@@ -38,12 +35,3 @@ class MoodEntry(models.Model):
 
     def get_absolute_url(self):
         return reverse("mood-detail", kwargs={"pk": self.pk})
-
-# class GeneratedAffirmation(models.Model):
-#     """Store generated affirmations linked to mood entries"""
-#     mood_entry = models.OneToOneField(MoodEntry, on_delete=models.CASCADE, related_name='affirmation')
-#     affirmation_text = models.TextField()
-#     generated_at = models.DateTimeField(auto_now_add=True)
-    
-#     def __str__(self):
-#         return f"Affirmation for {self.mood_entry.mood}"
