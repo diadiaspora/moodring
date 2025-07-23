@@ -1,1 +1,1 @@
-web: gunicorn moodring.wsgi
+web: gunicorn moodring.wsgiq
