@@ -100,11 +100,19 @@ def about(request):
 
 def mood_detail(request, pk):
     mood = MoodEntry.objects.get(id=pk)
-    affirmation = request.session.pop('affirmation', None)
+
+    # Only generate an affirmation if it hasn't already been saved
+    if not mood.affirmation:
+        api_key = os.getenv("GEMINI_API_KEY")
+        journal_text = mood.journal_text or "No journal entry provided."
+        affirmation = generate_affirmation(api_key, mood.mood, journal_text)
+        mood.affirmation = affirmation
+        mood.save()
+
     return render(request, 'moods/detail.html', {
         'mood': mood,
-        'affirmation': affirmation
     })
+
 
 # DELETE this entire function. Do not just comment it out.
 # def get_context_data(self, **kwargs):

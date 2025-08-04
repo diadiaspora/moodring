@@ -2,22 +2,22 @@
 {% load static %}
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/moods/moods-index.css' %}" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{% static 'css/moods/moods-index.css' %}" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 {% block content %}
 <section class="page-header">
   <h1 class="subheading" style="color: #000000">Mood Logs</h1>
   <p class="description" style="color: #000000">Your day-to-day mood snapshots</p>
-  <p class="description"; style="color: #000000;  text-align: justify;"">
+  <p class="description" ; style="color: #000000;  text-align: justify;"">
     Each card shows the date that you recorded your mood. Click on a card to dive deeper into your mood, intensity
     and journal reflections. Track patterns, reflect and understand changes in your mood.
   </p>
 </section>
 
-<!-- Chart Section -->
-<section class="chart-section">
+>
+<section class=" chart-section">
   <div class="chart-wrapper">
     <canvas id="moodChart" aria-label="Mood Distribution Chart" role="img"></canvas>
   </div>
@@ -26,16 +26,16 @@
 <!-- Mood Cards -->
 <section class="card-container">
   {% for mood in moods %}
-    <a href="{% url 'mood-detail' mood.id %}" class="card-link" style="text-decoration: none;">
-      <div class="card" style="background-color: #ffffff;">
-        <div class="card-content">
-          <div class="card-img-container">
-            <img src="{% static 'images/header1.png' %}" alt="Mood Icon" />
-          </div>
-          <h2 class="card-title" style="color: #000000;  font-size: 16px;">{{ mood.created_at }}</h2>
+  <a href="{% url 'mood-detail' mood.id %}" class="card-link" style="text-decoration: none;">
+    <div class="card" style="background-color: #ffffff;">
+      <div class="card-content">
+        <div class="card-img-container">
+          <img src="{% static 'images/header1.png' %}" alt="Mood Icon" />
         </div>
+        <h2 class="card-title" style="color: #000000;  font-size: 16px;">{{ mood.created_at }}</h2>
       </div>
-    </a>
+    </div>
+  </a>
   {% endfor %}
 </section>
 
